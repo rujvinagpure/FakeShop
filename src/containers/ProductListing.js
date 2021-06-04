@@ -1,11 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from 'axios';
 
+import { useSelector } from 'react-redux';
+import ProductComponent from "./ProductComponent";
 const ProductListing = () =>{
+const products = useSelector((state) => state);
+
+const fetchProducts =async()=>
+{
+const response = await axios.get ("https://fakestoreapi.com/products").catch((err)=>{
+    console.log("Err",err);
+});
+console.log(response);
+};
+useEffect(() =>{
+    fetchProducts();
+}, []);
+console.log(products);
 
     return(
-<div> 
+<div className="ui grid container">  
 
-    <h1>ProductListing</h1>
+    <ProductComponent/>
 </div>
     );
 };
